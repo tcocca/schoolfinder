@@ -1,5 +1,5 @@
 class Hash
- 
+  
   # Converts all of the keys to strings, optionally formatting key name
   def rubyify_keys!
     keys.each{|k|
@@ -16,7 +16,7 @@ end
 
 class String
   
-  # converts a camel_cased string to a underscore string, 
+  # converts a camel_cased string to a underscore string
   # Same way ActiveSupport does string.underscore
   def to_underscore!
     self.to_s.gsub(/::/, '/').
@@ -28,3 +28,18 @@ class String
   
 end
 
+module Hashie
+  
+  class Rash < Mash
+    
+    def initialize(source_hash = nil, default = nil, &blk)
+      if source_hash
+        deep_update(source_hash) 
+        source_hash.rubyify_keys!
+      end
+      default ? super(default) : super(&blk)
+    end
+    
+  end
+  
+end

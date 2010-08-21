@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'schoolfinder'
 require 'spec'
 require 'spec/autorun'
+require 'fakeweb'
 
 Spec::Runner.configure do |config|
   
