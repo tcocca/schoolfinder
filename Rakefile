@@ -13,7 +13,7 @@ begin
     gem.add_dependency "httparty", ">= 0.6.1"
     gem.add_dependency "hashie", ">= 0.3.1"
     gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.add_development_dependency "fakeweb", ">= 1.2.8"
+    gem.add_development_dependency "webmock", ">= 1.3.4"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
