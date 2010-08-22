@@ -57,9 +57,9 @@ module Schoolfinder
       make_request(params, options)
     end
     
-    def branding_data(options = {})
+    def branding_data(optional_params = {})
       params = {:f => 'gbd'}
-      make_request(params, options)
+      make_request(params, optional_params)
     end
     
     private
