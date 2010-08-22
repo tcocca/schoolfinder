@@ -11,6 +11,10 @@ Spec::Runner.configure do |config|
   config.include WebMock
 end
 
+def new_schoolfinder
+  Schoolfinder::Client.new(SCHOOLFINDER_API_KEY)
+end
+
 def default_params
   {"v" => "3", "key" => SCHOOLFINDER_API_KEY, "resf" => "json", "sn" => "sf"}
 end

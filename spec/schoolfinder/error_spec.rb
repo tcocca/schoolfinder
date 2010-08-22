@@ -4,7 +4,7 @@ describe "Schoolfinder::Error" do
   
   before do
     mock_get({"f" => "getTestScores", "nces_id" => "450231000564"}, 'failure.json')
-    @schoolfinder = Schoolfinder::Client.new(SCHOOLFINDER_API_KEY)
+    @schoolfinder = new_schoolfinder
   end
   
   it "should return an error" do
