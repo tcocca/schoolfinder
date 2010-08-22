@@ -20,9 +20,9 @@ def default_params
 end
 
 def mock_get(params, response_fixture)
-  stub_http_request(:get, "api.education.com/service/service.php").with(:query => default_params.merge(params)).to_return(:body => mocked_body(response_fixture))
+  stub_http_request(:get, "api.education.com/service/service.php").with(:query => default_params.merge(params)).to_return(:body => mocked_response(response_fixture))
 end
 
-def mocked_body(response_fixture)
+def mocked_response(response_fixture)
   File.read(File.join(File.dirname(__FILE__), 'responses', response_fixture))
 end
