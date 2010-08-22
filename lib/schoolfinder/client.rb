@@ -62,6 +62,8 @@ module Schoolfinder
       make_request(params, options)
     end
     
+    private
+    
     def make_request(params, options = {})
       params.merge!(options) unless options.blank?
       Schoolfinder::Response.new(self.class.get('/service/service.php', :query => params))

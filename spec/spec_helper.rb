@@ -5,12 +5,14 @@ require 'spec'
 require 'spec/autorun'
 require 'webmock/rspec'
 
+SCHOOLFINDER_API_KEY = YAML.load_file(File.join(File.dirname(__FILE__), 'schoolfinder_api_key.yml'))["api_key"]
+
 Spec::Runner.configure do |config|
   config.include WebMock
 end
 
 def default_params
-  {"v" => "3", "key" => "some_key", "resf" => "json", "sn" => "sf"}
+  {"v" => "3", "key" => SCHOOLFINDER_API_KEY, "resf" => "json", "sn" => "sf"}
 end
 
 def mock_get(params, response_fixture)
