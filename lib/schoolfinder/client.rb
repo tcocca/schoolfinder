@@ -17,9 +17,9 @@ module Schoolfinder
       make_request(params, optional_params)
     end
     
-    def test_rating(school_id, nces_id)
-      params = {:f => 'getTestRating', :schoolid => school_id, :nces_id => nces_id}
-      make_request(params)
+    def test_rating(options)
+      params = {:f => 'getTestRating'}
+      make_request(params, options)
     end
     
     def student_diversity(options)
