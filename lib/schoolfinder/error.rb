@@ -2,7 +2,6 @@ module Schoolfinder
   class Error < Exception
     
     attr_reader :code, :error
-    attr_accessor :message
     
     def initialize(code, error)
       @code = code
