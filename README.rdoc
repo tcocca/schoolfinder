@@ -1,6 +1,115 @@
 = schoolfinder
 
-Description goes here.
+A gem to interact with the education.com free schoolfinder api.
+
+Register for a Schoolfinder API Key Here:
+http://www.education.com/schoolfinder/tools/webservice/
+
+Schoolfinder API Documentation:
+http://www.education.com/schoolfinder/tools/webservice/documentation/
+
+
+== Installation
+
+  gem install schoolfinder
+
+In a rails app:
+
+  config.gem 'schoolfinder'
+
+
+== Usage
+
+Create a new instance of the Schoolfinder Client
+
+  @schoolfinder = Schoolfinder::Client.new('your_api_key')
+
+The following methods are available to the Schoolfinder::Client class, each method corresponds to an api call
+Each method returns a Schoolfinder::Response which responds to a call to :body
+
+:body is an instance of Hashie::Rash.  Hashie::Rash inherits from Hashie::Mash (see the following:  http://github.com/intridea/hashie ) with the only difference being that in a Hashie::Rash all keys (method names) of the original hash are "rubyified", converted from camelCase to underscore.  So, "methodName"  would be "method_name".  This in turn looks something like the following example:
+
+  @response = @schoolfinder.school_search(:zip => 02215)
+  @response.body.first.schoolname # => 'Fenway Park Academy'
+
+
+=== Schoolfinder::Client methods
+
+Notes on passing params to each method:  All parameter keys should be passed in exactly as stated in the schoolfinder api documentation linked above.
+
+The following default parameters are automatically passed through so you don't need to worry about them:
+
+  sn = sf, key = (your API key), f = (method_name), v = 3
+
+==== Search for Schools:
+
+  @response = @schoolfinder.school_search
+
+school_search takes an optional params hash.
+@response.body is an Array of Hashie:Rash objects
+
+==== Get Test Ratings:
+
+  @response = @schoolfinder.test_rating(:nces_id => "061029001146")
+
+test_rating requires either an nces_id or schoolid parameter passed through in hash format.
+@response.body is an Array of Hashie:Rash objects
+
+==== Get Student Diversity
+
+  @response = @response = @schoolfinder.student_diversity(:nces_id => "450231000564")
+
+student_diversity requires one of nces_id, schoolid, city or state
+@response.body is a Hashie:Rash object
+
+==== Get Test Scores
+
+  @response = @response = @schoolfinder.test_scores(:nces_id => "450231000564")
+
+test_scores requires one of schoolid, nces_id, districtid, districtleaid
+@response.body is a Hashie:Rash object
+
+==== Get Teacher Stats
+
+  @response = @schoolfinder.teacher_stats(:nces_id => "450231000564", :districtleaid => "4502310")
+
+teacher_stats requires one of schoolid, nces_id, districtid, districtleaid
+@response.body is a Hashie:Rash object
+
+==== Get Student Stats
+
+  @response = @schoolfinder.student_stats(:nces_id => "450231000564", :districtleaid => "4502310", :city => "Greenville", :state => "SC")
+
+student_stats requires one of schoolid, nces_id, districtid, districtleaid, city, state
+@response.body is a Hashie:Rash object
+
+==== Get Reviews
+
+  @response = @schoolfinder.get_reviews(:schoolid => "25381")
+
+get_reviews requires one of schoolid, nces_id
+@response.body is a Hashie:Rash object
+
+==== Number Of (for a city and state)
+
+  @response = @schoolfinder.number_of("Greenville", "SC")
+
+number_of requires 2 parameters  (city, state)
+@response.body is an Array of Hashie:Rash objects
+
+==== District Search
+
+  @response = @schoolfinder.district_search(:city => "Greenville", :state => "SC")
+
+district_search requires one of districtid, districtleaid, districtname, state, city, zip
+@response.body is an Array of Hashie:Rash objects
+
+==== Get Branding Data
+
+  @response = @schoolfinder.branding_data
+
+branding_data takes optional parameters (as noted in the documentation)
+@response.body is a Hashie:Rash object
 
 == Note on Patches/Pull Requests
  
@@ -12,6 +121,7 @@ Description goes here.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
+
 == Copyright
 
-Copyright (c) 2010 tcocca. See LICENSE for details.
+Copyright (c) 2010 Tom Cocca. See LICENSE for details.
