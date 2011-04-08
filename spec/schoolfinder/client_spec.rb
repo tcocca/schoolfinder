@@ -16,6 +16,7 @@ describe "Schoolfinder::Client" do
       @response = @schoolfinder.school_search(:zip => "29601")
       @response.should_not be_nil
       @response.body.should be_kind_of(Array)
+      @response.body.first.should be_kind_of(Hashie::Rash)
     end
   end
   
@@ -30,6 +31,7 @@ describe "Schoolfinder::Client" do
       @response = @schoolfinder.test_rating(:nces_id => "061029001146")
       @response.should_not be_nil
       @response.body.should be_kind_of(Array)
+      @response.body.first.should be_kind_of(Hashie::Rash)
     end
   end
   
@@ -114,6 +116,7 @@ describe "Schoolfinder::Client" do
       @response = @schoolfinder.number_of("Greenville", "SC")
       @response.should_not be_nil
       @response.body.should be_kind_of(Array)
+      @response.body.first.should be_kind_of(Hashie::Rash)
     end
   end
   
@@ -128,6 +131,7 @@ describe "Schoolfinder::Client" do
       @response = @schoolfinder.district_search(:city => "Greenville", :state => "SC")
       @response.should_not be_nil
       @response.body.should be_kind_of(Array)
+      @response.body.first.should be_kind_of(Hashie::Rash)
     end
   end
   
