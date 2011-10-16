@@ -4,7 +4,7 @@ module Schoolfinder
     attr_accessor :body
     
     def initialize(response)
-      self.body = rash_response(response)
+      rash_response(response)
       if self.body.respond_to?('fault_string')
         raise Schoolfinder::Error.new(self.body.fault_code, self.body.fault_string)
       end
