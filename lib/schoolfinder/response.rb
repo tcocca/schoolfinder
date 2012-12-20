@@ -1,17 +1,17 @@
 module Schoolfinder
   class Response
-    
+
     attr_accessor :body
-    
+
     def initialize(response)
       rash_response(response)
       if self.body.respond_to?('fault_string')
         raise Schoolfinder::Error.new(self.body.fault_code, self.body.fault_string)
       end
     end
-    
+
     private
-    
+
     def rash_response(response)
       if response.is_a?(Array)
         self.body = []
@@ -28,6 +28,6 @@ module Schoolfinder
         self.body = response
       end
     end
-    
+
   end
 end
