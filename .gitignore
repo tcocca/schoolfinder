@@ -19,4 +19,6 @@ rdoc
 pkg
 
 ## PROJECT::SPECIFIC
+Gemfile.lock
+*.gem
 spec/schoolfinder_api_key.yml

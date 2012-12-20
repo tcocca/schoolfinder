@@ -1,18 +1,17 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'schoolfinder'
-require 'spec'
-require 'spec/autorun'
+require 'rspec'
 require 'webmock/rspec'
 
 SCHOOLFINDER_API_KEY = YAML.load_file(File.join(File.dirname(__FILE__), 'schoolfinder_api_key.yml'))["api_key"]
 
-Spec::Runner.configure do |config|
-  config.include WebMock
-end
-
 def new_schoolfinder
   Schoolfinder::Client.new(SCHOOLFINDER_API_KEY)
+end
+
+def new_timeout_schoolfinder
+  Schoolfinder::Client.new(SCHOOLFINDER_API_KEY, 5)
 end
 
 def default_params
