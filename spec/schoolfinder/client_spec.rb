@@ -5,6 +5,29 @@ describe "Schoolfinder::Client" do
     @schoolfinder = new_schoolfinder
   end
 
+  context "new client" do
+    it "should set the default params" do
+      @schoolfinder.class.default_params.should_not be_empty
+      @schoolfinder.class.default_params[:key].should == SCHOOLFINDER_API_KEY
+      @schoolfinder.class.default_params[:sn].should == 'sf'
+      @schoolfinder.class.default_params[:resf].should == 'json'
+      @schoolfinder.class.default_params[:v].should == '3'
+      @schoolfinder.http_timeout.should be_nil
+    end
+  end
+
+  context "new timeout client" do
+    it "should set the default params" do
+      @schoolfinder = new_timeout_schoolfinder
+      @schoolfinder.class.default_params.should_not be_empty
+      @schoolfinder.class.default_params[:key].should == SCHOOLFINDER_API_KEY
+      @schoolfinder.class.default_params[:sn].should == 'sf'
+      @schoolfinder.class.default_params[:resf].should == 'json'
+      @schoolfinder.class.default_params[:v].should == '3'
+      @schoolfinder.http_timeout.should == 5
+    end
+  end
+
   context "school_search" do
     before do
       mock_get({"f" => "schoolSearch", "zip" => "29601"}, 'school_search.json')
@@ -146,6 +169,15 @@ describe "Schoolfinder::Client" do
       @response = @schoolfinder.branding_data(:nces_id => "450231000564")
       @response.should_not be_nil
       @response.body.should be_kind_of(Hashie::Rash)
+    end
+  end
+
+  context "timeout" do
+    it "should rescue a timeout error and raise a Schoolfinder::Error" do
+      stub_request(:get, "http://api.education.com/service/service.php?f=gbd&key=#{SCHOOLFINDER_API_KEY}&nces_id=450231000564&resf=json&sn=sf&v=3").to_timeout
+      lambda {
+        response = @schoolfinder.branding_data(:nces_id => "450231000564").should raise_exception(Schoolfinder::Error, "Schoolfinder Error: a timeout occured (code: 0)")
+      }
     end
   end
 
