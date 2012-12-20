@@ -24,6 +24,17 @@ Create a new instance of the Schoolfinder Client
 
   @schoolfinder = Schoolfinder::Client.new('your_api_key')
 
+You can also pass an optional http timeout setting that httparty will pass to net/http
+
+  @schoolfinder = Schoolfinder::Client.new('your_api_key', 5)
+
+This would make the response trigger a Timeout::Error on the request. 
+The client then rescues that request and passes a fake response that will trigger a Schoolfinder::Error with the code 0 and message "a timeout occured".
+This is because Schoolfinder currently does not have a error code 0 (only 1-7, see here: http://www.education.com/webservice/documentation/?section=schoolsearch)
+So this would raise a:
+
+  #<Schoolfinder::Error: Schoolfinder Error: a timeout occured (code: 0)>
+
 The following methods are available to the Schoolfinder::Client class, each method corresponds to an api call
 Each method returns a Schoolfinder::Response which responds to a call to :body
 
