@@ -11,12 +11,17 @@ module Schoolfinder
       self.class.default_params :key  => api_key
       self.class.default_params :sn   => 'sf'
       self.class.default_params :resf => 'json'
-      self.class.default_params :v    => '3'
+      self.class.default_params :v    => '5'
       self.http_timeout = http_timeout
     end
 
     def school_search(optional_params = {})
       params = {:f => 'schoolSearch'}
+      make_request(params, optional_params)
+    end
+    
+    def assigned_schools(optional_params = {})
+      params = {:f => 'getAssignedSchools'}
       make_request(params, optional_params)
     end
 

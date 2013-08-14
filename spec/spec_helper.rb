@@ -15,7 +15,7 @@ def new_timeout_schoolfinder
 end
 
 def default_params
-  {"v" => "3", "key" => SCHOOLFINDER_API_KEY, "resf" => "json", "sn" => "sf"}
+  {"v" => "5", "key" => SCHOOLFINDER_API_KEY, "resf" => "json", "sn" => "sf"}
 end
 
 def mock_get(params, response_fixture)
