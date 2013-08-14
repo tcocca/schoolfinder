@@ -11,7 +11,7 @@ describe "Schoolfinder::Client" do
       @schoolfinder.class.default_params[:key].should == SCHOOLFINDER_API_KEY
       @schoolfinder.class.default_params[:sn].should == 'sf'
       @schoolfinder.class.default_params[:resf].should == 'json'
-      @schoolfinder.class.default_params[:v].should == '3'
+      @schoolfinder.class.default_params[:v].should == '5'
       @schoolfinder.http_timeout.should be_nil
     end
   end
@@ -23,7 +23,7 @@ describe "Schoolfinder::Client" do
       @schoolfinder.class.default_params[:key].should == SCHOOLFINDER_API_KEY
       @schoolfinder.class.default_params[:sn].should == 'sf'
       @schoolfinder.class.default_params[:resf].should == 'json'
-      @schoolfinder.class.default_params[:v].should == '3'
+      @schoolfinder.class.default_params[:v].should == '5'
       @schoolfinder.http_timeout.should == 5
     end
   end
@@ -37,6 +37,21 @@ describe "Schoolfinder::Client" do
 
     it "should return a response" do
       @response = @schoolfinder.school_search(:zip => "29601")
+      @response.should_not be_nil
+      @response.body.should be_kind_of(Array)
+      @response.body.first.should be_kind_of(Hashie::Rash)
+    end
+  end
+  
+  context "assigned_schools" do
+    before do
+      mock_get({"f" => "getAssignedSchools", "latitude" => "42.34", "longitude" => "-71.05"}, 'assigned_schools.json')
+    end
+
+    it { lambda {@schoolfinder.assigned_schools(:latitude => "42.34", :longitude => "-71.05")}.should_not raise_exception }
+
+    it "should return a response" do
+      @response = @schoolfinder.assigned_schools(:latitude => "42.34", :longitude => "-71.05")
       @response.should_not be_nil
       @response.body.should be_kind_of(Array)
       @response.body.first.should be_kind_of(Hashie::Rash)
