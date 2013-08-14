@@ -20,7 +20,7 @@ module Schoolfinder
       make_request(params, optional_params)
     end
     
-    def school_prop_search(optional_params = {})
+    def assigned_schools(optional_params = {})
       params = {:f => 'getAssignedSchools'}
       make_request(params, optional_params)
     end
