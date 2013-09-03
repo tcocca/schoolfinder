@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.version = Schoolfinder::VERSION
   s.platform = Gem::Platform::RUBY
 
-  s.add_dependency "activesupport", "~> 3"
+  s.add_dependency "activesupport", ">= 3"
   s.add_dependency "httparty", "~> 0.10.2"
   s.add_dependency "rash", "~> 0.4.0"
   s.add_development_dependency "rake", "~> 0.9.2"
