@@ -73,7 +73,7 @@ module Schoolfinder
     private
 
     def make_request(params, options = {})
-      params.merge!(options) unless options.blank?
+      params.merge!(options) unless options.empty?
       http_params = {}
       unless params.empty?
         http_params[:query] = params
