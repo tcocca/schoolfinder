@@ -24,6 +24,11 @@ module Schoolfinder
       params = {:f => 'getAssignedSchools'}
       make_request(params, optional_params)
     end
+    
+    def assigned_district(optional_params = {})
+      params = {:f => 'getAssignedDistrict'}
+      make_request(params, optional_params)
+    end
 
     def test_rating(options)
       params = {:f => 'getTestRating'}
@@ -73,7 +78,7 @@ module Schoolfinder
     private
 
     def make_request(params, options = {})
-      params.merge!(options) unless options.blank?
+      params.merge!(options) unless options.empty?
       http_params = {}
       unless params.empty?
         http_params[:query] = params
