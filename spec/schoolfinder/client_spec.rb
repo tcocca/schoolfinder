@@ -57,6 +57,21 @@ describe "Schoolfinder::Client" do
       @response.body.first.should be_kind_of(Hashie::Rash)
     end
   end
+  
+  context "assigned_district" do
+    before do
+      mock_get({"f" => "getAssignedDistrict", "latitude" => "42.34", "longitude" => "-71.05"}, 'assigned_district.json')
+    end
+
+    it { lambda {@schoolfinder.assigned_district(:latitude => "42.34", :longitude => "-71.05")}.should_not raise_exception }
+
+    it "should return a response" do
+      @response = @schoolfinder.assigned_district(:latitude => "42.34", :longitude => "-71.05")
+      @response.should_not be_nil
+      @response.body.should be_kind_of(Array)
+      @response.body.first.should be_kind_of(Hashie::Rash)
+    end
+  end
 
   context "test_rating" do
     before do

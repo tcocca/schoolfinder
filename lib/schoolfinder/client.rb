@@ -24,6 +24,11 @@ module Schoolfinder
       params = {:f => 'getAssignedSchools'}
       make_request(params, optional_params)
     end
+    
+    def assigned_district(optional_params = {})
+      params = {:f => 'getAssignedDistrict'}
+      make_request(params, optional_params)
+    end
 
     def test_rating(options)
       params = {:f => 'getTestRating'}
