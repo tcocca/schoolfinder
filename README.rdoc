@@ -96,7 +96,7 @@ student_stats requires one of schoolid, nces_id, districtid, districtleaid, city
 
 ==== Get Reviews
 
-  @response = @schoolfinder.get_reviews(:schoolid => "25381")
+  @response = @schoolfinder.reviews(:schoolid => "25381")
 
 get_reviews requires one of schoolid, nces_id
 @response.body is a Hashie:Rash object
